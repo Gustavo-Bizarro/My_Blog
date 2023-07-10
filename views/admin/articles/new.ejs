@@ -1,0 +1,30 @@
+<%- include ('../../partials/header.ejs'); %>
+    <%- include ('../../partials/navbar.ejs'); %>
+
+        <div class="container">
+            <hr>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Novo Artigo</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/categories/save" method="post" >
+                        <input class="form-control" type="text" name="title" placeholder="Defina o titulo da artigo"
+                            id=""><br> 
+                            <textarea class="form-control" placeholder="Escreva o artico aqui" name="body" id="article"></textarea> <br>
+                            <button class="btn btn-success">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <%- include ('../../partials/footer.ejs'); %>
+        <script src="/tinymce/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                language: 'pt_BR',
+                selector: "#article",
+                plugins: [
+                    'advlist', 'autolink', 'media', 'link', 'image', 'lists', 'print', 'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 'insertdatetime', 'save', 'table', 'paste', 'emotions'
+                ]
+            })
+        </script>
