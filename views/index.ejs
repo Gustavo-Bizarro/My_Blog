@@ -1,6 +1,28 @@
 <%- include ('partials/header.ejs'); %>
+<%- include ('partials/homenavbar.ejs'); %>
  
 <body>
-<h1>Ola Mundo!!!!!!</h1>
+    <div class="container">
+        <hr>
+        <div class="jumbotron">
+            <h1 class="display-4">Sejá bem vindo ao meu blog</h1>
+            <p class="lead">Este é um blog que aborda um pouco de tudo, viagens, aventuras, pedaladas, surf, corrida e muito mais.</p>
+            <hr class="my-4">
+            <p>Este blog conta um pouco do cotidiano de um pai de família.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+          </div>
+        <hr>
+        <% articles.forEach(article=> { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-success" href="/<%= article.slug %>">Ler Artigo</a>
+                </div>
+            </div>
+            <br>
+            <% }) %>
+    </div>
 </body>
 <%- include ('partials/footer.ejs'); %>

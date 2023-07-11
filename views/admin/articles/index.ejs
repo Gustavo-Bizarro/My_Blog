@@ -13,33 +13,43 @@
                         <th>Titulo</th>
                         <th>Slug</th>
                         <th>Categoria</th>
-                        <th>
-                            <form action="/article/delete" method="post" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
-                                <input type="hidden" name="id" value="<%= articles.id %>">
-                                <button class="btn btn-danger">Deletar</button>
-                            </form>
-                        </th>
-
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                   <% articles.forEach(article => { %>
-                        <td><%= article.id %></td>
-                        <td><%= article.title %></td>
-                        <td><%= article.slug %></td>
-                        <td><%= article.category.title %></td>
-                        <td><%= article.ação %></td>
-                   <%}) %>
+                    <% articles.forEach(article=> { %>
+                        <tr>
+                        <td>
+                            <%= article.id %>
+                        </td>
+                        <td>
+                            <%= article.title %>
+                        </td>
+                        <td>
+                            <%= article.slug %>
+                        </td>
+                        <td>
+                            <%= article.category.title %>
+                        </td>
+                        <td>
+                            <form action="/articles/delete" method="post" style="display: inline"
+                                onsubmit="confirmarDelecao(event, this)">
+                                <input type="hidden" name="id" value="<%= article.id %>">
+                                <button class="btn btn-danger">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                        <% }) %>
                 </tbody>
             </table>
         </div>
         <%- include ('../../partials/footer.ejs'); %>
-        <script>
-            function confirmarDelecao(event, form){
-                event.preventDefault()
-               var decisao = confirm("Tem certeza");
-               if(decisao){
-                form.submit();
-               }
-            }
-        </script>
+            <script>
+                function confirmarDelecao(event, form) {
+                    event.preventDefault()
+                    var decisao = confirm("Tem certeza");
+                    if (decisao) {
+                        form.submit();
+                    }
+                }
+            </script>
