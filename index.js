@@ -63,6 +63,28 @@ app.get("/:slug", (req ,res) => {
     })
 })
 
+app.get("/category/:slug" ,(req ,res) => {
+    var sulg = req.params.slug;
+    Category.findOne({
+        where : {
+            slug: sulg
+        },
+        include: [{model: Article}]
+    }).then(category => {
+        if(category != undefined){
+
+        category.findAll().then(categories => {
+            res.render("index", {articles: category.articles,categories: categories });
+        });
+
+        }else{
+            res.redirect("/");
+        }
+}).catch( err => {
+    res.redirect("/")
+})
+})
+
 app.listen(3030, () => {
     console.log("O servidor está rodando");
-} )
+})
