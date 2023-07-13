@@ -8,17 +8,24 @@
                     <h2>Editar artigo</h2>
                 </div>
                 <div class="card-body">
-                    <form action="/articles/save" method="post" >
-                        <input class="form-control" type="text" name="title" placeholder="Defina o titulo do artigo"><br> 
-                            <textarea class="form-control" placeholder="Escreva o seu artigo aqui:" name="body" id="article"></textarea><br>
-                            <label>Artigo</label>
-                            <select name="category" class="form-control">
-                                <% categories.forEach((category) => {%>
-                                    <option value="<%= category.id %>"><%= category.title %></option>
-                                <%})%>
-                            </select>
-                            <br>
-                            <button class="btn btn-success">Atualizar</button>
+                    <form action="/articles/update" method="post">
+                        <input type="hidden" value="<%= article.id %>" name="id">
+                        <input class="form-control" type="text" name="title"
+                            placeholder="Defina o titulo do artigo"><br>
+                        <textarea class="form-control" placeholder="Escreva o seu artigo aqui:" name="body"
+                            id="article"></textarea><br>
+                        <label>Categoria</label>
+                        <select name="category" class="form-control">
+                            <% categories.forEach((category)=> {%>
+                                <% if(category.id == article.categoryId){%>
+                                    <option value="<%= category.id %>" selected><%= category.title %></option>
+                                    <% }else { %>
+                                        <option value="<%= category.id %>"><%= category.title %></option>
+                                        <% } %>
+                                    <%})%>
+                        </select>
+                        <br>
+                        <button class="btn btn-success">Atualizar</button>
                     </form>
                 </div>
             </div>
@@ -34,16 +41,16 @@
 
         <%- include ('../../partials/footer.ejs'); %>
 
-        <script src="/tinymce/tinymce.min.js"></script>
-        <script>
-            tinymce.init({
-                language: 'pt_BR',
-                selector: "#article",
-                plugins: [
-                    'advlist', 'autolink', 'media', 'link', 'image', 'lists', 'print', 'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 'insertdatetime', 'save', 'table', 'paste', 'emotions'
-                ],
-                init_instance_callback: () => {
-                    tinymce.get("article").setContent($("#content").html())
-                }
-            })
-        </script>
+            <script src="/tinymce/tinymce.min.js"></script>
+            <script>
+                tinymce.init({
+                    language: 'pt_BR',
+                    selector: "#article",
+                    plugins: [
+                        'advlist', 'autolink', 'media', 'link', 'image', 'lists', 'print', 'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 'insertdatetime', 'save', 'table', 'paste', 'emotions'
+                    ],
+                    init_instance_callback: () => {
+                        tinymce.get("article").setContent($("#content").html())
+                    }
+                })
+            </script>
