@@ -1,18 +1,25 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const connection = require("./database/database");
 
-const categoriesController = require("./categories/CategoriesController")
-const articlesController = require("./articles/ArticlesController")
-const usersController = require("./users/UsersController")
+const categoriesController = require("./categories/CategoriesController");
+const articlesController = require("./articles/ArticlesController");
+const usersController = require("./users/UsersController");
 
 const Article = require("./articles/Article");
 const Category = require("./categories/category");
-const User = require("./users/user")
+const User = require("./users/user");
 
 //view engine, carregar o ejs
 app.set('view engine','ejs');
+
+//Sessions
+app.set(session({
+secret: "coisasAleatorias", cookie: { maxAge: 30000000 }
+}));
+
 //arquivos Static
 app.use(express.static('public'));
 
@@ -21,14 +28,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 //conexão database
-
 connection
 .authenticate()
 .then(() => {
     console.log("conexão feita com sucesso!"); 
 }).catch((error) => {
     console.log("ERROR na conexão");
-})
+});
+
 //para utilizar prefixo nas rotas 
 app.use("/",categoriesController);
 app.use("/",articlesController);
