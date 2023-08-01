@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const session = require("express-session");
 const connection = require("./database/database");
+const session = require("express-session");
 
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
@@ -10,14 +10,15 @@ const usersController = require("./users/UsersController");
 
 const Article = require("./articles/Article");
 const Category = require("./categories/category");
-const User = require("./users/user");
+const User = require("./users/User");
 
 //view engine, carregar o ejs
 app.set('view engine','ejs');
 
 //Sessions
-app.set(session({
-secret: "coisasAleatorias", cookie: { maxAge: 30000000 }
+app.use(session({
+secret: "coisasAleatorias", 
+cookie: { maxAge: 30000000 }
 }));
 
 //arquivos Static
